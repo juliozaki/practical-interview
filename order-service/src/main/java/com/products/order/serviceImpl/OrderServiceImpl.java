@@ -13,11 +13,11 @@ import com.products.order.service.OrderService;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-  private final ProductServiceClient productClient;
+  private ProductServiceClient productClient;
 
-  private final OrderRepository orderRepository;
+  private OrderRepository orderRepository;
 
-  private final PaymentProcessor paymentProcessor;
+  private PaymentProcessor paymentProcessor;
 
   public OrderServiceImpl() {
   }
@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
    * 2. Save the order and the product items.
    */
   @Override
-  public CreateOrderRequest CreateOrder(CreateOrderRequest request) {
+  public CreateOrderRequest createOrder(CreateOrderRequest request) {
     // TODO Auto-generated method stub
     return null;
   }

@@ -9,6 +9,6 @@ import com.products.order.product.model.ProductResponse;
  * Use this interface to implement feing client.
  *
  */
-@FeingAnnotation(name = "product-service")
+//@FeingAnnotation(name = "product-service")
 public interface ProductServiceClient {
 }

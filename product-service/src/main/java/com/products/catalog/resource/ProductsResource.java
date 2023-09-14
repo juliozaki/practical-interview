@@ -1,11 +1,11 @@
 package com.products.catalog.resource;
 
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.products.catalog.constants.ResourceConstants;
 import com.products.catalog.model.Product;
 import com.products.catalog.model.ProductDTO;
@@ -16,9 +16,12 @@ import com.products.catalog.serviceImpl.ProductsServiceImpl;
  * Products API to manage the catalog.
  *
  */
-@RequestMapping(path = ResourceConstants.PRODUCT_PATH_CONSTANT)
+@RestController
+@RequestMapping(value = "product")
 public class ProductsResource {
 
+  @Autowired
+  ProductsServiceImpl productsService;
   private ProductsService service = new ProductsServiceImpl();
   
   /**
@@ -26,16 +29,29 @@ public class ProductsResource {
    * @param id.
    * @return product.
    */
+
+  @GetMapping("retrieveProductById/{id}")
   public ResponseEntity<ProductDTO> retrieveProduct(@PathVariable("id") Long id) {
-    return new ResponseEntity<>(new ProductDTO(), HttpStatus.CREATED);
+    ProductDTO productDTO= new ProductDTO();
+    Product product= productsService.retrieveProduct(id);
+    if (product != null) {
+      productDTO.setId(product.getId());
+      productDTO.setName(product.getName());
+      productDTO.setDescription(product.getDescription());
+      productDTO.setPrice(product.getPrice());
+      return new ResponseEntity<>(productDTO, HttpStatus.OK);
+    }else{
+      return new ResponseEntity<>(null, HttpStatus.OK);
+    }
   }
   
   /**
    * Retrieve all the products.
    * @return a list of products.
    */
+  @GetMapping("retrieveProduct")
   public ResponseEntity<List<Product>> retrieveAllProducts() {
-    return new ResponseEntity<>(null, HttpStatus.OK);
+    return new ResponseEntity<>(productsService.retrieveProducts(), HttpStatus.OK);
   }
 
   /**
@@ -52,7 +68,9 @@ public class ProductsResource {
    * @param request
    * @return the product.
    */
+  @PostMapping("createProduct")
   public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO request) {
+    productsService.CreateProduct(request);
     return new ResponseEntity<>(request, HttpStatus.CREATED);
   }
 
@@ -62,9 +80,10 @@ public class ProductsResource {
    * @param product
    * @return the product.
    */
-  public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") Long id,
-      @RequestBody ProductDTO product) {
-    return null;
+  @PostMapping("updateProduct")
+  public ResponseEntity<ProductDTO> updateProduct(@RequestBody ProductDTO product) {
+    productsService.updateProduct(product);
+    return new ResponseEntity<>(product, HttpStatus.OK);
   }
 
 }

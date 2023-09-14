@@ -1,9 +1,18 @@
 package com.products.order.product.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Table(name = "create_order_item_request")
+@Entity
 public class CreateOrderItemRequest {
-  
+
+  @Id
+  @Column(name = "id")
   private Long id;
-  
+  @Column(name = "product_id")
   private String productId;
 
   public Long getId() {

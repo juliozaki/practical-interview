@@ -1,19 +1,26 @@
 package com.products.catalog.model;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 /**
  * Entity to represent the product catalog.
  */
 @Entity
+@Table(name = "product")
 public class Product {
-  
+
+  @Id
+  @Column(name = "id")
+  //@GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  
+
+  @Column(name = "name")
   private String name;
-  
+
+  @Column(name = "description")
   private String description;
-  
+
+  @Column(name = "price")
   private Double price;
   
   public Product() {

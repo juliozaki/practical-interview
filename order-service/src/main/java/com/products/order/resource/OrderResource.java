@@ -1,5 +1,7 @@
 package com.products.order.resource;
 
+import com.products.order.serviceImpl.OrderServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,11 +17,12 @@ import com.products.order.service.OrderService;
 @RestController
 public class OrderResource {
 
-  private final OrderService orderService;
+  @Autowired
+  private OrderServiceImpl orderService;
 
-  public OrderResource(OrderService orderService) {
+  /*public OrderResource(OrderService orderService) {
     this.orderService = orderService;
-  }
+  }*/
 
   /**
    * Create a new resource.

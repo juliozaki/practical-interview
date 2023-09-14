@@ -8,5 +8,5 @@ import com.products.order.product.model.CreateOrderRequest;
  */
 public interface OrderService {
   
-  CreateOrderRequest CreateOrder(CreateOrderRequest orderRequest);
+  CreateOrderRequest createOrder(CreateOrderRequest orderRequest);
 }
